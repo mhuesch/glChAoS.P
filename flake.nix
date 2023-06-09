@@ -17,8 +17,12 @@
       {
 
         devShells.default = pkgs.mkShell {
-          buildInputs = [
+          buildInputs = with pkgs; [
             cmake
+            glfw
+            libGL
+            mesa
+            xorg.libX11
           ];
         };
 

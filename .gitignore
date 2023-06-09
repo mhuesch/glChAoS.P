@@ -1,1 +1,4 @@
 .direnv/
+build/
+glChAoSP_Linux
+imgui.ini
