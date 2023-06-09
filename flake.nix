@@ -12,18 +12,21 @@
           inherit system;
         };
 
+        buildInputs = with pkgs; [
+          cmake
+          glfw
+          libGL
+          mesa
+          xorg.libX11
+        ];
+
+
       in
 
       {
 
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            cmake
-            glfw
-            libGL
-            mesa
-            xorg.libX11
-          ];
+          inherit buildInputs;
         };
 
         packages.default = pkgs.stdenv.mkDerivation rec {
@@ -33,25 +36,17 @@
 
           dontConfigure = true;
 
-          buildInputs = with pkgs; [
-            cmake
-            glfw
-            libGL
-            mesa
-            xorg.libX11
-          ];
+          inherit buildInputs;
 
           buildPhase = ''
             cd src/
             sh build_glChAoSP.sh
-            pwd
           '';
 
           installPhase = ''
-            mkdir -p $out/bin
-            cp ../glChAoSP_Linux $out/bin/glChAoSP
+            mkdir -p $out
+            cp ../glChAoSP_Linux $out/glChAoSP
           '';
-
         };
 
       });
