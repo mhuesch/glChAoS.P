@@ -12,7 +12,7 @@
           inherit system;
         };
 
-        reqPkgs = with pkgs; [
+        buildInputs = with pkgs; [
           cmake
           glfw
           libGL
@@ -26,7 +26,7 @@
       {
 
         devShells.default = pkgs.mkShell {
-          buildInputs = reqPkgs;
+          inherit buildInputs;
         };
 
         packages.default = pkgs.stdenv.mkDerivation rec {
@@ -36,7 +36,7 @@
 
           dontConfigure = true;
 
-          buildInputs = reqPkgs;
+          inherit buildInputs;
 
           buildPhase = ''
             cd src/
@@ -44,11 +44,10 @@
           '';
 
           installPhase = ''
-            mkdir -p $out/bin
-            cp ../glChAoSP_Linux $out/bin/glChAoSP
+            mkdir -p $out
+            cp -r .. $out
+            cp ../glChAoSP_Linux $out/glChAoSP
           '';
-
-          runtimeDeps = reqPkgs;
         };
 
       });
