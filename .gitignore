@@ -2,3 +2,5 @@
 build/
 glChAoSP_Linux
 imgui.ini
+result
+result-*

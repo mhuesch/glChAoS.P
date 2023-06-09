@@ -26,5 +26,33 @@
           ];
         };
 
+        packages.default = pkgs.stdenv.mkDerivation rec {
+          name = "glChAoS.P-master";
+
+          src = ./.;
+
+          dontConfigure = true;
+
+          buildInputs = with pkgs; [
+            cmake
+            glfw
+            libGL
+            mesa
+            xorg.libX11
+          ];
+
+          buildPhase = ''
+            cd src/
+            sh build_glChAoSP.sh
+            pwd
+          '';
+
+          installPhase = ''
+            mkdir -p $out/bin
+            cp ../glChAoSP_Linux $out/bin/glChAoSP
+          '';
+
+        };
+
       });
 }
